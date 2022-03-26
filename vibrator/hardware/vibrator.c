@@ -98,8 +98,8 @@ static int vibra_perfom_effect(vibrator_device_t* vibradev __unused, unsigned in
         if (effect_id - 40001 >= 0x3E7) {
             ALOGE("Unsupported effect!");
             return -ENOTSUP;
-	}
-	return write_value(VIBRA_MZ_RTP, value);
+	    }
+	    return write_value(VIBRA_MZ_RTP, value);
     } else {
         return write_value(VIBRA_MZ_ON_OFF, value);
     }
