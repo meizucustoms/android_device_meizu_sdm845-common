@@ -1,18 +1,16 @@
-#
-# Copyright (C) 2020 The MoKee Open Source Project
-#
-# SPDX-License-Identifier: Apache-2.0
-#
-
-# Inherit from those products. Most specific first.
+# Device supports 64-bit
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+
+# Use full-featured configuration
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+
+# Launched with API 27
 $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_o_mr1.mk)
 
-# Inherit from m1892 device
+# m1882 configuration
 $(call inherit-product, device/meizu/sdm845/m1892/m1892.mk)
 
-# Inherit from the AOSPA configuration
+# AOSPA configuration
 $(call inherit-product, vendor/aospa/target/product/aospa-target.mk)
 
 # Credits to XiNGRZ

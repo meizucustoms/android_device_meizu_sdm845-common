@@ -1,4 +1,7 @@
+# Proprietary blobs
 $(call inherit-product, vendor/meizu/m1892/m1892-vendor.mk)
+
+# Common configuration
 $(call inherit-product, device/meizu/sdm845/sdm845.mk)
 
 # Overlays
