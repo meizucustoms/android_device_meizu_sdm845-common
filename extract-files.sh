@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2016 The CyanogenMod Project
 # Copyright (C) 2017 The LineageOS Project
+# Copyright (C) 2022 Paranoid Android
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,7 +20,7 @@
 set -e
 
 VENDOR=meizu
-DEVICE_COMMON=sdm845
+DEVICE=sdm845-common
 
 # Load extract_utils and do some sanity checks
 MY_DIR="${BASH_SOURCE%/*}"
@@ -38,7 +39,6 @@ fi
 CLEAN_VENDOR=true
 SECTION=
 KANG=
-DEVICE=
 
 while [ "$1" != "" ]; do
     case "$1" in
@@ -50,21 +50,11 @@ while [ "$1" != "" ]; do
                                 SECTION="$1"
                                 CLEAN_VENDOR=false
                                 ;;
-        --m1882 )               DEVICE=m1882
-                                ;;
-        --m1892 )               DEVICE=m1892
-                                ;;
         * )                     SRC="$1"
                                 ;;
     esac
     shift
 done
-
-if [ -z "${DEVICE}" ]; then
-    echo "The device name was not selected!"
-    echo "Use --m1882 (if 16th) or --m1892 (if 16thPlus)!"
-    exit 1
-fi
 
 if [ -z "${SRC}" ]; then
     SRC=adb
@@ -133,15 +123,8 @@ function blob_fixup() {
 }
 
 # Initialize the helper
-setup_vendor "${DEVICE_COMMON}" "${VENDOR}" "${ANDROID_ROOT}" false "${CLEAN_VENDOR}"
+setup_vendor "${DEVICE}" "${VENDOR}" "${ANDROID_ROOT}" false "${CLEAN_VENDOR}"
 
 extract "${MY_DIR}/proprietary-files-sdm845.txt" "${SRC}" ${KANG} --section "${SECTION}"
 
-if [ -n "${DEVICE}" ]; then
-    # Reinitialize the helper for device
-    setup_vendor "${DEVICE}" "${VENDOR}" "${ANDROID_ROOT}" false "${CLEAN_VENDOR}"
-
-    extract "${MY_DIR}/${DEVICE}/proprietary-files-${DEVICE}.txt" "${SRC}"
-fi
-
-"${MY_DIR}/setup-makefiles.sh" "--${DEVICE}"
+"${MY_DIR}/setup-makefiles.sh"
