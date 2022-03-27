@@ -1,5 +1,5 @@
 # Path
-COMMON_PATH := device/meizu/sdm845
+COMMON_PATH := device/meizu/sdm845-common
 
 # Build
 BUILD_BROKEN_DUP_RULES := true
@@ -193,4 +193,4 @@ WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # Proprietary BoardConfig
--include vendor/meizu/sdm845/BoardConfigVendor.mk
+-include vendor/meizu/sdm845-common/BoardConfigVendor.mk

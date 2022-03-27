@@ -1,5 +1,5 @@
 # Proprietary blobs
-$(call inherit-product, vendor/meizu/sdm845/sdm845-vendor.mk)
+$(call inherit-product, vendor/meizu/sdm845-common/sdm845-vendor.mk)
 
 # Setup dalvik vm configs
 $(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
