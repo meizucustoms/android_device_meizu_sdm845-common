@@ -1,0 +1,9 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+	model = "Qualcomm Technologies, Inc. SDM845 v2.1 MTP";
+	compatible = "qcom,sdm845-mtp", "qcom,sdm845", "qcom,mtp";
+	qcom,msm-id = <321 0x20001>;
+	qcom,board-id = <8 0>;
+};
