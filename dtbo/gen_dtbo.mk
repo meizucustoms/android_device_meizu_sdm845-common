@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-ifneq ($(filter m1882 m1892,$(TARGET_DEVICE)),
+ifneq ($(filter m1882 m1892,$(TARGET_DEVICE)),)
 
 include $(CLEAR_VARS)
 
