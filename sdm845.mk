@@ -51,6 +51,10 @@ PRODUCT_COPY_FILES += \
 # Platform
 TARGET_BOARD_PLATFORM := sdm845
 
+# Soong namespaces
+PRODUCT_SOONG_NAMESPACES += \
+    kernel/meizu/sdm845
+
 # Device uses high-density artwork where available
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
