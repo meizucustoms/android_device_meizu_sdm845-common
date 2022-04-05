@@ -120,7 +120,7 @@ int main(int argc, char **argv) {
 
     close(fd);
 
-    int filesize = header.total_size;
+    int filesize = htobe32(header.total_size);
     // Match page size
     if (filesize % 4096 != 0)
         filesize = ((filesize / 4096) + 1) * 4096;

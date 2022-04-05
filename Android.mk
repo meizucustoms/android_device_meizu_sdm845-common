@@ -10,9 +10,10 @@ ifneq ($(filter m1882 m1892,$(TARGET_DEVICE)),)
 
 $(call add-radio-file,radio/filesmap)
 
-include $(call all-makefiles-under,$(LOCAL_PATH))
-subdir_makefiles=$(call first-makefiles-under,$(LOCAL_PATH))
-$(foreach mk,$(subdir_makefiles),$(info including $(mk) ...)$(eval include $(mk)))
+include $(call all-subdir-makefiles)
+
+DTBO_BUILDER := $(HOST_OUT_EXECUTABLES)/dtboBuilderMeizuSDM845$(HOST_EXECUTABLE_SUFFIX)
+DTC := $(HOST_OUT_EXECUTABLES)/dtc$(HOST_EXECUTABLE_SUFFIX)
 
 include $(CLEAR_VARS)
 
@@ -79,5 +80,26 @@ $(WCNSS_MAC_SYMLINK): $(LOCAL_INSTALLED_MODULE)
 	$(hide) ln -sf /persist/$(notdir $@) $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(WCNSS_INI_SYMLINK) $(WCNSS_MAC_SYMLINK)
+
+INSTALLED_DTBO_TARGET := $(TARGET_OUT_VENDOR)/etc/dtbo.img
+
+define build_dtbo_meizu_sdm845
+	$(call pretty, "Target empty dtbo image: $(INSTALLED_DTBO_TARGET)")
+	$(hide) $(DTC) \
+			-I dts -O dtb \
+			-b 0 -@ -H both \
+			-o $(PRODUCT_OUT)/dtbo.dtb \
+			device/meizu/sdm845-common/dtbo/dtbo.dts
+    $(hide) $(DTBO_BUILDER) $(PRODUCT_OUT)/dtbo.dtb $(INSTALLED_DTBO_TARGET)
+	$(hide) $(AVBTOOL) add_hash_footer \
+	    --image $(INSTALLED_DTBO_TARGET) \
+	    --partition_size $(BOARD_DTBO_PARTITION_SIZE) \
+	    --partition_name dtbo $(INTERNAL_AVB_SIGNING_ARGS)
+endef
+
+$(INSTALLED_DTBO_TARGET): $(DTBO_BUILDER) $(DTC) $(AVBTOOL)
+	$(build_dtbo_meizu_sdm845)
+
+ALL_DEFAULT_INSTALLED_MODULES += $(INSTALLED_DTBO_TARGET)
 
 endif
