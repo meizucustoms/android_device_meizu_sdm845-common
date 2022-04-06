@@ -16,29 +16,21 @@
 import common
 import re
 
-def InstallDtboImage(script):
-  indtbo = "/vendor/etc/dtbo.img"
-  dtbobak = "/dev/block/platform/soc/1d84000.ufshc/by-name/dtbobak"
-  dtbo = "/dev/block/platform/soc/1d84000.ufshc/by-name/dtbo"
-  script.Mount("/vendor")
-  script.Print("Patching DTBO...")
-  script.AppendExtra('package_extract_file("%s", "%s");' % (indtbo, dtbo))
-  script.AppendExtra('package_extract_file("%s", "%s");' % (indtbo, dtbobak))
-  script.Unmount("/vendor")
+def AddImage(info, basename, dest):
+  name = basename
+  data = info.input_zip.read("IMAGES/" + basename)
+  common.ZipWriteStr(info.output_zip, name, data)
+  info.script.AppendExtra('package_extract_file("%s", "%s");' % (name, dest))
 
-def AddClearMeizuRoot(info):
+def OTA_Assertions(info):
+  # Clear Meizu root
   info.script.AppendExtra('meizu_sdm845.clear_mz_root();')
   return
 
-
-def OTA_Assertions(info):
-  AddClearMeizuRoot(info)
-  return
-
 def OTA_InstallEnd(info):
-  InstallDtboImage(info.script)
+  AddImage(info, "dtbo.img", "/dev/block/platform/soc/1d84000.ufshc/by-name/dtbo")
+  AddImage(info, "vbmeta.img", "/dev/block/platform/soc/1d84000.ufshc/by-name/vbmeta")
   return
-
 
 def FullOTA_Assertions(info):
   OTA_Assertions(info)
