@@ -70,7 +70,8 @@ PRODUCT_CHARACTERISTICS := nosdcard
 # QTI Common
 TARGET_COMMON_QTI_COMPONENTS := \
     perf \
-    av
+    av \
+    bt
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -96,6 +97,7 @@ PRODUCT_COPY_FILES += \
     $(TOPDIR)frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml
 
 # Bluetooth
+TARGET_USE_QTI_BT_STACK := false
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0.vendor \
     android.hardware.bluetooth.a2dp@1.0-impl
