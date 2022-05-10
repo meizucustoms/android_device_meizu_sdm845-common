@@ -55,6 +55,11 @@ TARGET_KERNEL_VERSION := 4.9
 TARGET_KERNEL_SOURCE := kernel/meizu/sdm845
 TARGET_USES_UNCOMPRESSED_KERNEL := false
 
+# Kernel compiler
+KERNEL_SD_LLVM_SUPPORT := false
+TARGET_KERNEL_CLANG_VERSION := prelude
+KERNEL_TOOLCHAIN := $(shell pwd)/prebuilts/clang/host/linux-x86/clang-prelude/bin
+
 # Platform
 BOARD_USES_QCOM_HARDWARE := true
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno630
