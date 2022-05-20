@@ -71,7 +71,8 @@ PRODUCT_CHARACTERISTICS := nosdcard
 TARGET_COMMON_QTI_COMPONENTS := \
     perf \
     av \
-    bt
+    bt \
+    init
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -194,8 +195,10 @@ PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,$(LOCAL_PATH)/keylayout,$(TARGET_COPY_OUT_VENDOR)/usr/keylayout)
 
 # Init
-PRODUCT_COPY_FILES += \
-    $(call find-copy-subdir-files,*,$(LOCAL_PATH)/init/vendor,$(TARGET_COPY_OUT_VENDOR))
+PRODUCT_PACKAGES += \
+    fstab.qcom \
+    init.qcom.usb.rc \
+    init.target.rc
 
 # KeyHandler
 PRODUCT_PACKAGES += \
