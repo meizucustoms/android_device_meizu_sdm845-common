@@ -54,11 +54,13 @@ TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_KERNEL_VERSION := 4.9
 TARGET_KERNEL_SOURCE := kernel/meizu/sdm845
 TARGET_USES_UNCOMPRESSED_KERNEL := false
+TARGET_KERNEL_ADDITIONAL_FLAGS := \
+    DTC_OVERLAY_TEST_EXT=$(shell pwd)/out/host/linux-x86/bin/ufdt_apply_overlay
+TARGET_KERNEL_ADDITIONAL_DEPS := \
+    out/host/linux-x86/bin/ufdt_apply_overlay
 
-# Kernel compiler
-KERNEL_SD_LLVM_SUPPORT := false
-TARGET_KERNEL_CLANG_VERSION := prelude
-KERNEL_TOOLCHAIN := $(shell pwd)/prebuilts/clang/host/linux-x86/clang-prelude/bin
+# Kernel build
+BOARD_USES_LINEAGE_KERNEL_BUILDER := true
 
 # Platform
 BOARD_USES_QCOM_HARDWARE := true
