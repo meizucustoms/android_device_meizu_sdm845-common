@@ -33,14 +33,17 @@
 # Currently we dont have e2fsck compiled. So fs check would failed.
 
 #<src>                                                  <mnt_point>         <type>  <mnt_flags and options>                             <fs_mgr_flags>
-/dev/block/platform/soc/1d84000.ufshc/by-name/cache                     /cache              ext4    noatime,nosuid,nodev,barrier=1,noauto_da_alloc,discard    wait,check
 /dev/block/platform/soc/1d84000.ufshc/by-name/dsp                       /dsp                ext4    ro,nosuid,nodev,barrier=1                           wait
 /dev/block/platform/soc/1d84000.ufshc/by-name/persist                   /persist            ext4    noatime,nosuid,nodev,barrier=1                      wait
 
 /dev/block/platform/soc/1d84000.ufshc/by-name/bluetooth                 /bt_firmware        vfat    ro,shortname=lower,uid=1002,gid=3002,dmask=227,fmask=337,context=u:object_r:bt_firmware_file:s0   wait
 /dev/block/platform/soc/1d84000.ufshc/by-name/modem                     /firmware           vfat    ro,shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337,context=u:object_r:firmware_file:s0      wait
 
-/dev/block/platform/soc/1d84000.ufshc/by-name/userdata                  /data               ext4    noatime,nosuid,nodev,barrier=1,noauto_da_alloc,discard    wait,check,resize
+/dev/block/platform/soc/1d84000.ufshc/by-name/cache                     /cache              ext4    noatime,nosuid,nodev,barrier=0                            wait
+/dev/block/platform/soc/1d84000.ufshc/by-name/cache                     /cache              f2fs    noatime,nosuid,nodev,fsync_mode=nobarrier                 wait
+
+/dev/block/platform/soc/1d84000.ufshc/by-name/userdata                  /data               ext4    noatime,nosuid,nodev,barrier=0,noauto_da_alloc,discard    wait,check,quota
+/dev/block/platform/soc/1d84000.ufshc/by-name/userdata                  /data               f2fs    noatime,nosuid,nodev,discard,fsync_mode=nobarrier         wait,check,quota
 
 # Need to have this entry in here even though the mount point itself is no longer needed.
 # The update_engine code looks for this entry in order to determine the boot device address
