@@ -26,14 +26,6 @@ def OTA_InstallEnd(info):
   AddImage(info, "dtbo.img", "/dev/block/platform/soc/1d84000.ufshc/by-name/dtbo")
   return
 
-def FullOTA_Assertions(info):
-  OTA_Assertions(info)
-  return
-
-def IncrementalOTA_Assertions(info):
-  OTA_Assertions(info)
-  return
-
 def FullOTA_InstallEnd(info):
   OTA_InstallEnd(info)
   return
